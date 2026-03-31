@@ -1,22 +1,1588 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Célio Crivellar | Desenvolvedor Web em Formação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --success: #10b981;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color:rgb(87, 207, 223);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(120, 75, 162, 0.1) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text h1 span {
+            color: var(--secondary);
+            -webkit-text-fill-color: var(--secondary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--gray);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .code-window {
+            background: var(--dark-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.3s;
+        }
+
+        .code-window:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .code-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #abb2bf;
+        }
+
+        .code-line {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .line-number {
+            color: #495162;
+            min-width: 1.5rem;
+            text-align: right;
+        }
+
+        .code-keyword { color: #c678dd; }
+        .code-function { color: #61afef; }
+        .code-string { color: #98c379; }
+        .code-comment { color: #5c6370; font-style: italic; }
+        .code-variable { color: #e06c75; }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+        }
+
+        .highlight-box {
+            background: var(--dark-light);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--light);
+            font-style: italic;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--dark-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .skill-category h4 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .skill-list li::before {
+            content: '▹';
+            color: var(--primary);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--dark);
+            border: 3px solid var(--secondary);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-company {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-skill {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--dark-light);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .project-image {
+            height: 200px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .project-card:hover .project-image::before {
+            transform: translateX(100%);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .project-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .status-progress {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--secondary);
+        }
+
+        .project-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-card {
+            background: var(--dark-light);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .tech-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-level {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 3px;
+            transition: width 1s ease-out;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--dark-light);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-link:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .contact-link i {
+            font-size: 1.25rem;
+            color: var(--secondary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+        }
+
+        .contact-form {
+            background: var(--dark-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--light);
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social a {
+            color: var(--gray);
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-copy {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .code-window {
+                transform: none;
+                max-width: 100%;
+            }
+
+            .about-grid,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--secondary);
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--secondary); }
         }
     </style>
+<base target="_blank">
 </head>
-
 <body>
-    <h1>Olá, pessoal!</h1>
-    <p>Este é meu site</p>
-    <h2>Este é um site pessoal</h2>
-    <h3>Este é um h3</h3>
-</body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>
+                <span>Célio</span>Crivellar
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#experience">Experiência</a></li>
+                <li><a href="#projects">Projetos</a></li>
+                <li><a href="#tech">Tecnologias</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-subtitle">
+                    <i class="fas fa-rocket"></i>
+                    Desenvolvedor Web em Formação
+                </div>
+                <h1>Olá, sou <span>Célio</span><br>Rezende Carneiro Crivellar</h1>
+                <p class="hero-description">
+                    Estudante de Análise e Desenvolvimento de Sistemas com experiência consolidada em ambientes industriais. 
+                    Transicionando carreira aplicando visão analítica, disciplina e responsabilidade adquiridas em 10+ anos 
+                    na indústria para o desenvolvimento de soluções tecnológicas.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Anos Indústria</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Projetos Dev</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1º</span>
+                        <span class="stat-label">Semestre ADS</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-folder-open"></i>
+                        Ver Projetos
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contato
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                    </div>
+                    <div class="code-content">
+                        <div class="code-line">
+                            <span class="line-number">1</span>
+                            <span><span class="code-keyword">const</span> <span class="code-variable">developer</span> = {</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">2</span>
+                            <span>  <span class="code-variable">nome</span>: <span class="code-string">'Célio Crivellar'</span>,</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">3</span>
+                            <span>  <span class="code-variable">transição</span>: <span class="code-string">'Indústria → Tech'</span>,</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">4</span>
+                            <span>  <span class="code-variable">habilidades</span>: [<span class="code-string">'HTML'</span>, <span class="code-string">'CSS'</span>, <span class="code-string">'JS'</span>],</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">5</span>
+                            <span>  <span class="code-variable">foco</span>: <span class="code-string">'React & SQL'</span>,</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">6</span>
+                            <span>  <span class="code-function">objetivo</span>: () => <span class="code-string">'Dev Júnior'</span></span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">7</span>
+                            <span>};</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">8</span>
+                            <span class="code-comment">// Disponível para oportunidades!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <div class="section-header">
+            <span class="section-tag">Sobre Mim</span>
+            <h2 class="section-title">Da Indústria ao Desenvolvimento</h2>
+            <p class="section-subtitle">
+                Combinando experiência operacional sólida com novas habilidades técnicas para criar soluções eficientes
+            </p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-text">
+                <h3>Perfil Profissional</h3>
+                <p>
+                    Sou estudante de Análise e Desenvolvimento de Sistemas (1º semestre) na Faculdade Descomplica, 
+                    com previsão de conclusão em 2028. Minha trajetória profissional inclui mais de 10 anos de 
+                    experiência em ambientes industriais de grande porte, atuando com sistemas integrados (SAP), 
+                    controle de processos e análise operacional.
+                </p>
+                <p>
+                    Essa vivência me proporcionou uma visão analítica apurada, disciplina rigorosa e capacidade 
+                    de resolver problemas complexos sob pressão - habilidades que agora aplico no desenvolvimento 
+                    de software.
+                </p>
+
+                <div class="highlight-box">
+                    <p>
+                        "Busco oportunidades como Desenvolvedor Júnior ou Estagiário em TI, onde possa aplicar 
+                        meu conhecimento técnico aliado à maturidade profissional adquirida na indústria."
+                    </p>
+                </div>
+            </div>
+
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h4><i class="fas fa-code"></i> Desenvolvimento</h4>
+                    <ul class="skill-list">
+                        <li>HTML5 & CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>React (em aprendizado)</li>
+                        <li>SQL (em aprendizado)</li>
+                        <li>Git & GitHub</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h4><i class="fas fa-industry"></i> Industriais</h4>
+                    <ul class="skill-list">
+                        <li>SAP (usuário avançado)</li>
+                        <li>Controle de processos</li>
+                        <li>Análise de dados operacionais</li>
+                        <li>Gestão de equipes</li>
+                        <li>Normas e compliance</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h4><i class="fas fa-lightbulb"></i> Soft Skills</h4>
+                    <ul class="skill-list">
+                        <li>Pensamento analítico</li>
+                        <li>Resolução de problemas</li>
+                        <li>Disciplina e comprometimento</li>
+                        <li>Trabalho sob pressão</li>
+                        <li>Aprendizado contínuo</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h4><i class="fas fa-certificate"></i> Certificações</h4>
+                    <ul class="skill-list">
+                        <li>Algoritmo e Lógica - Completo</li>
+                        <li>Web Moderno JavaScript - Cursando</li>
+                        <li>Curso Vigilante Patrimonial</li>
+                        <li>CNH A/B</li>
+                        <li>Pacote Office Intermediário</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="fade-in">
+        <div class="section-header">
+            <span class="section-tag">Experiência Profissional</span>
+            <h2 class="section-title">Trajetória Industrial</h2>
+            <p class="section-subtitle">
+                Experiência consolidada que desenvolveu habilidades transferíveis essenciais para TI
+            </p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2021 - 2022</div>
+                <div class="timeline-title">Vigilante Patrimonial (Líder)</div>
+                <div class="timeline-company">Souza Lima Segurança Patrimonial LTDA / Plascar</div>
+                <div class="timeline-desc">
+                    Liderança de equipe em fábrica de para-choques automotivos. Gestão de controle de acesso, 
+                    recebimento e expedição de cargas, conferência fiscal de notas, SPOT CHECK e integração com SAP.
+                </div>
+                <div class="timeline-skills">
+                    <span class="timeline-skill">SAP</span>
+                    <span class="timeline-skill">Gestão de Equipe</span>
+                    <span class="timeline-skill">Logística</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2018 - 2021</div>
+                <div class="timeline-title">Vigilante Patrimonial</div>
+                <div class="timeline-company">Triade Vigilância / Magneti Marelli</div>
+                <div class="timeline-desc">
+                    Atuação em fábrica de faróis e lanternas automotivas. Controle de processos logísticos, 
+                    pesagem de veículos, sistema integrado Fiat Service (SAP), confecção de crachás e gestão de acesso.
+                </div>
+                <div class="timeline-skills">
+                    <span class="timeline-skill">SAP</span>
+                    <span class="timeline-skill">Controle de Processos</span>
+                    <span class="timeline-skill">Análise Operacional</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2017 - 2018</div>
+                <div class="timeline-title">Agente de Controle de Perdas</div>
+                <div class="timeline-company">Triade Serviços / Magneti Marelli</div>
+                <div class="timeline-desc">
+                    Recebimento de notas fiscais, abertura e fechamento de processos de entrada, 
+                    pesagem e conferência de materiais, controle de qualidade e conformidade com políticas internas.
+                </div>
+                <div class="timeline-skills">
+                    <span class="timeline-skill">Análise de Dados</span>
+                    <span class="timeline-skill">Conferência Fiscal</span>
+                    <span class="timeline-skill">Relatórios</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2015 - 2016</div>
+                <div class="timeline-title">Líder de Balança</div>
+                <div class="timeline-company">Mettis do Brasil / Indústria Metalúrgica</div>
+                <div class="timeline-desc">
+                    Gerenciamento de recebimento e processamento de matéria-prima, pesagem de veículos 
+                    rodoviários, controle de entrada e saída de materiais conforme normas estabelecidas.
+                </div>
+                <div class="timeline-skills">
+                    <span class="timeline-skill">Liderança</span>
+                    <span class="timeline-skill">Logística</span>
+                    <span class="timeline-skill">Normas</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2011 - 2015</div>
+                <div class="timeline-title">Supervisor de Recebimento e Expedição</div>
+                <div class="timeline-company">Fundiligas Indústria</div>
+                <div class="timeline-desc">
+                    Supervisão completa do setor de balança rodoviária, treinamento de equipe, 
+                    processos seletivos, garantia de performance e conformidade fiscal de operações.
+                </div>
+                <div class="timeline-skills">
+                    <span class="timeline-skill">Supervisão</span>
+                    <span class="timeline-skill">Treinamento</span>
+                    <span class="timeline-skill">Gestão</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="fade-in">
+        <div class="section-header">
+            <span class="section-tag">Portfólio</span>
+            <h2 class="section-title">Projetos em Destaque</h2>
+            <p class="section-subtitle">
+                Aplicações práticas desenvolvidas para consolidar fundamentos de desenvolvimento front-end
+            </p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Flappy Bird -->
+            <div class="project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);">
+                    <i class="fas fa-gamepad" style="color: #228B22;"></i>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3 class="project-title">Flappy Bird - JavaScript</h3>
+                        <span class="project-status status-completed">Concluído</span>
+                    </div>
+                    <p class="project-description">
+                        Jogo inspirado no clássico Flappy Bird desenvolvido com JavaScript puro. 
+                        Implementação completa de manipulação de DOM, game loop, detecção de colisão 
+                        e controle de eventos. Deploy realizado na Vercel.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Canvas API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> Código
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Landing Page Barbearia -->
+            <div class="project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, #2C3E50 0%, #4A6741 100%);">
+                    <i class="fas fa-cut" style="color: #D4AF37;"></i>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3 class="project-title">Landing Page Barbearia</h3>
+                        <span class="project-status status-completed">Concluído</span>
+                    </div>
+                    <p class="project-description">
+                        Projeto responsivo de landing page para barbearia, focado em layout moderno, 
+                        estrutura semântica HTML5 e boas práticas de CSS. Design adaptável a todos 
+                        os dispositivos com ênfase em experiência do usuário.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5 Semântico</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Responsive Design</span>
+                        <span class="tech-tag">Flexbox/Grid</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> Código
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projeto Nega -->
+            <div class="project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="fas fa-shopping-cart" style="color: white;"></i>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3 class="project-title">Projeto Nega - Sistema de Pedidos</h3>
+                        <span class="project-status status-progress">Em Desenvolvimento</span>
+                    </div>
+                    <p class="project-description">
+                        Sistema de gestão de pedidos com estrutura preparada para integração com React 
+                        e banco de dados SQL. Foco em organização de dados, arquitetura escalável e 
+                        fundamentos de desenvolvimento full-stack.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">API REST</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-code-branch"></i> Em Breve
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="fade-in">
+        <div class="section-header">
+            <span class="section-tag">Stack Tecnológico</span>
+            <h2 class="section-title">Tecnologias & Ferramentas</h2>
+            <p class="section-subtitle">
+                Conhecimentos técnicos em constante evolução
+            </p>
+        </div>
+
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fab fa-html5"></i>
+                </div>
+                <h3 class="tech-name">HTML5</h3>
+                <p class="tech-level">Avançado</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fab fa-css3-alt"></i>
+                </div>
+                <h3 class="tech-name">CSS3</h3>
+                <p class="tech-level">Avançado</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fab fa-js"></i>
+                </div>
+                <h3 class="tech-name">JavaScript</h3>
+                <p class="tech-level">Intermediário</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 70%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fab fa-react"></i>
+                </div>
+                <h3 class="tech-name">React</h3>
+                <p class="tech-level">Em Aprendizado</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 40%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="tech-name">SQL</h3>
+                <p class="tech-level">Em Aprendizado</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 35%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fab fa-git-alt"></i>
+                </div>
+                <h3 class="tech-name">Git/GitHub</h3>
+                <p class="tech-level">Intermediário</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3 class="tech-name">SAP</h3>
+                <p class="tech-level">Usuário Avançado</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%;"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3 class="tech-name">Metodologias Ágeis</h3>
+                <p class="tech-level">Fundamentos</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <div class="section-header">
+            <span class="section-tag">Contato</span>
+            <h2 class="section-title">Vamos Conversar</h2>
+            <p class="section-subtitle">
+                Disponível para oportunidades como Desenvolvedor Júnior ou Estagiário em TI
+            </p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Informações de Contato</h3>
+                <p>
+                    Estou em transição de carreira e buscando oportunidades para aplicar 
+                    meus conhecimentos em desenvolvimento web. Ficarei feliz em discutir 
+                    como minha experiência industrial pode agregar valor à sua equipe técnica.
+                </p>
+
+                <div class="contact-links">
+                    <a href="mailto:celiorezendecarneir@hotmail.com" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <div style="font-size: 0.875rem; color: var(--gray);">celiorezendecarneir@hotmail.com</div>
+                        </div>
+                    </a>
+
+                    <a href="tel:+5531991915667" class="contact-link">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Telefone</strong>
+                            <div style="font-size: 0.875rem; color: var(--gray);">(31) 99191-5667</div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="contact-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Localização</strong>
+                            <div style="font-size: 0.875rem; color: var(--gray);">Contagem, Minas Gerais</div>
+                        </div>
+                    </a>
+
+                    <a href="https://linkedin.com/in/célio-carneiro" target="_blank" class="contact-link">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <strong>LinkedIn</strong>
+                            <div style="font-size: 0.875rem; color: var(--gray);">linkedin.com/in/célio-carneiro</div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/celiocarneirocrivellar-cmd" target="_blank" class="contact-link">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <strong>GitHub</strong>
+                            <div style="font-size: 0.875rem; color: var(--gray);">celiocarneirocrivellar-cmd</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form onsubmit="event.preventDefault(); alert('Mensagem enviada! (Simulação)');">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required placeholder="Seu nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Oportunidade de emprego">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" required placeholder="Descreva a oportunidade ou deixe sua mensagem..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Mensagem
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                Desenvolvido com dedicação em transição de carreira | Célio Rezende Carneiro Crivellar
+            </p>
+            <div class="footer-social">
+                <a href="https://github.com/celiocarneirocrivellar-cmd" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/célio-carneiro" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:celiorezendecarneir@hotmail.com">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="footer-copy">
+                © 2026 - Portfólio em constante evolução
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (simplified)
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            alert('Menu mobile - implementar drawer/menu lateral');
+        });
+
+        // Animate progress bars on scroll
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fills = entry.target.querySelectorAll('.progress-fill');
+                    fills.forEach(fill => {
+                        const width = fill.style.width;
+                        fill.style.width = '0';
+                        setTimeout(() => {
+                            fill.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.tech-grid').forEach(grid => {
+            progressObserver.observe(grid);
+        });
+    </script>
+</body>
 </html>
